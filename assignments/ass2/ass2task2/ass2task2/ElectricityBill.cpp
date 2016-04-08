@@ -35,8 +35,8 @@ void ElectricityBill::calculateBillAmount(){
     double totalSupplyCharge = billdays * ElectricityBill::supplyCharge;
 
     
-    this->amountDue = totalAmount + totalSupplyCharge;
-    this->totalGST = this->amountDue * .1;
+    this->amountDue = floor((totalAmount + totalSupplyCharge) * 100) / 100.0;
+    this->totalGST = floor((this->amountDue * .1) * 100) / 100.0;
 }
 
 ostream& operator<<(ostream& out, const ElectricityBill& bill){
@@ -67,7 +67,7 @@ istream& operator>>(istream& in, ElectricityBill& bill){
 }
 
 void ElectricityBill::setNewRates(){
-    cout << "Set electricity rates." << endl;
+    cout << "\nSet electricity rates." << endl;
     cout << "Rate 1 ($ per kWh): ";
     cin >> ElectricityBill::rate1;
     cout << "Threshold (kWh): ";
@@ -77,7 +77,7 @@ void ElectricityBill::setNewRates(){
     cout << "Supply charge rate ($ per day): ";
     cin >> ElectricityBill::supplyCharge;
     
-    cout << "\n New rates for electricity bills have been set";
+    cout << "\nNew rates for electricity bills have been set\n" << endl;
 }
 
 char ElectricityBill::getBillType() const{

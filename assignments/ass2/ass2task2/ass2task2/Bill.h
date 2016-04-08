@@ -12,6 +12,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <cmath>
 
 class Date{
 private:
@@ -43,8 +44,8 @@ public:
     virtual ~Bill();
     friend std::ostream& operator<<(std::ostream&, const Bill&);
     friend std::istream& operator>>(std::istream&, Bill&);
-    virtual void printBill(std::ostream&);
-    virtual void loadBill(std::istream&);
+    void printBill(std::ostream&);
+    void loadBill(std::istream&);
     virtual void calculateBillAmount() = 0;
     virtual char getBillType() const = 0;
     virtual void printTotals(std::ostream&) const;

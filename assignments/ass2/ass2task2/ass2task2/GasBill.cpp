@@ -27,8 +27,8 @@ void GasBill::calculateBillAmount(){
     double totalAmountGas = totalMJ * rate;
     double amountSupplyCharge = (periodEndDate - periodStartDate) * supplyCharge;
     double totalAmountDue = totalAmountGas + amountSupplyCharge;
-    this->amountDue = totalAmountDue;
-    this->totalGST = this->amountDue * .1;
+    this->amountDue = floor(totalAmountDue * 100) / 100.0;
+    this->totalGST = floor((this->amountDue * .1) * 100) / 100.0;
 }
 
 ostream& operator<<(ostream& out, const GasBill& bill){
@@ -81,13 +81,15 @@ void GasBill::setNewRates(){
 }
 
 void GasBill::printBill(ostream& out){
-    cout << "Gas bill:" << endl;
+    cout << "\nGas bill:" << endl;
     dynamic_cast<Bill*>(this)->printBill(out);
     
     cout << "Previous reading: " << previousReading << endl;
     cout << "Current reading: " << currentReading << endl;
     cout << "Total amount due: $" << amountDue << endl;
     cout << "Total GST: $" << totalGST << endl;
+    
+    cout << "\nNew rates for gas bills have been set.\n" << endl;
 }
 
 void GasBill::loadBill(istream& input){

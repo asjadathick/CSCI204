@@ -69,6 +69,10 @@ int main(int argc, const char * argv[]) {
                 saveBillDataInTextFile(array);
                 break;
                 
+            case 7:
+                loadBillDataFromTextFile(array);
+                break;
+                
             default:
                 cout << "Invalid choice." << endl;
                 break;
@@ -95,7 +99,7 @@ void printMenu(){
 void inputElectricityBill(BillArray &array, bool input, std::istream& inputStream){
     ElectricityBill *bill = new ElectricityBill;
     if (input){
-        cout << "Input electricity bill data." << endl;
+        cout << "\nInput electricity bill data." << endl;
         cin >> *bill;
     }
     else
@@ -107,19 +111,19 @@ void inputElectricityBill(BillArray &array, bool input, std::istream& inputStrea
 void inputGasBill(BillArray &array, bool input, std::istream& inputStream){
     GasBill *bill = new GasBill;
     if (input){
-        cout << "Input gas bill data." << endl;
+        cout << "\nInput gas bill data." << endl;
         cin >> *bill;
     }
     else
         bill->loadBill(inputStream);
-    
-    array.addBill(bill);
+    if (!inputStream.eof())
+        array.addBill(bill);
 }
 
 void inputTelephoneBill(BillArray &array, bool input, std::istream& inputStream){
     TelephoneBill *bill = new TelephoneBill;
     if (input){
-        cout << "Input telephone bill data." << endl;
+        cout << "\nInput telephone bill data." << endl;
         cin >> *bill;
     }
     else
@@ -157,22 +161,25 @@ void saveBillDataInTextFile(BillArray &array){
         Bill *billptr = array.getBillItem(i);
         switch (billptr->getBillType()) {
             case 'E':
-                outputFile << *dynamic_cast<ElectricityBill*>(array.getBillItem(i)) << endl;
+                outputFile << *dynamic_cast<ElectricityBill*>(array.getBillItem(i));
                 break;
             case 'G':
-                outputFile << *dynamic_cast<GasBill*>(array.getBillItem(i)) << endl;
+                outputFile << *dynamic_cast<GasBill*>(array.getBillItem(i));
                 break;
             case 'T':
-                outputFile << *dynamic_cast<TelephoneBill*>(array.getBillItem(i)) << endl;
+                outputFile << *dynamic_cast<TelephoneBill*>(array.getBillItem(i));
                 break;
             default:
                 outputFile << "Invalid bill type detected for bill: " << i << endl;
                 break;
         }
+        outputFile.flush();
         
     }
     
-    cout << i << " bill(s) have been saved." << endl;
+    outputFile.close();
+    
+    cout <<"\n\n" << i << " bill(s) have been saved. \n" << endl;
 }
 
 void loadBillDataFromTextFile(BillArray &array){
@@ -195,22 +202,47 @@ void loadBillDataFromTextFile(BillArray &array){
         //load records
         char type = inputFile.get();
         
-        switch (type) {
-            case 'E':
-                inputElectricityBill(array, false, inputFile);
-                break;
-            case 'G':
-                inputGasBill(array, false, inputFile);
-                break;
-            case 'T':
-                inputTelephoneBill(array, false, inputFile);
-                break;
-            default:
-                cout << "Invalid bill type encountered during bill load " << loadCount << endl;
-                loadCount--;
-                break;
+        if (!inputFile.eof()) {
+            switch (type) {
+                case 'E':
+                    inputElectricityBill(array, false, inputFile);
+                    break;
+                case 'G':
+                    inputGasBill(array, false, inputFile);
+                    break;
+                case 'T':
+                    inputTelephoneBill(array, false, inputFile);
+                    break;
+                default:
+                    cout << "Invalid bill type encountered during bill load " << loadCount << endl;
+                    loadCount--;
+                    break;
+            }
+            loadCount++;
         }
-        loadCount++;
+        
     }
     
+    inputFile.close();
+    
+    cout << "\n" << loadCount << " bill(s) have been loaded.\n" << endl;
+    
+    for (int i = 0; i<loadCount; i++) {
+        Bill *billptr = array.getBillItem(i);
+        switch (billptr->getBillType()) {
+            case 'E':
+                dynamic_cast<ElectricityBill*>(array.getBillItem(i))->printBill(cout);
+                break;
+            case 'G':
+                dynamic_cast<GasBill*>(array.getBillItem(i))->printBill(cout);
+                break;
+            case 'T':
+                dynamic_cast<TelephoneBill*>(array.getBillItem(i))->printBill(cout);
+                break;
+            default:
+                cout << "Invalid bill type detected for bill: " << i << endl;
+                break;
+        }
+        cout << endl;
+    }
 }

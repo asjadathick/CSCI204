@@ -23,7 +23,8 @@ TelephoneBill::TelephoneBill(){
 void TelephoneBill::calculateBillAmount(){
     double totalLocalCall = numberOfLocalCalls * localCallRate;
     this->amountDue = totalLocalCall + internationalCallAmount + lineRental + internetConnection;
-    this->totalGST = this->amountDue * .1;
+    this->amountDue = floor(this->amountDue * 100) / 100.0;
+    this->totalGST = floor((this->amountDue * .1) * 100) / 100.0;
 }
 
 char TelephoneBill::getBillType() const{
@@ -58,7 +59,7 @@ istream& operator>>(istream& in, TelephoneBill& bill){
 }
 
 void TelephoneBill::printBill(ostream& out){
-    cout << "Electricity bill:" << endl;
+    cout << "Telephone bill:" << endl;
     dynamic_cast<Bill*>(this)->printBill(out);
     
     cout << "Number of local calls: " << numberOfLocalCalls << endl;
