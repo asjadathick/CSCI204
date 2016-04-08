@@ -2,6 +2,7 @@
 //  EVector.hpp
 //  ass2
 //
+//  mama158
 //  Created by Asjad Athick on 3/04/2016.
 //  Copyright © 2016 Asjad Athick. All rights reserved.
 //
@@ -31,7 +32,6 @@ public:
     EVector operator*(const double);
     friend EVector operator*(const double, const EVector&);
     EVector operator/(const double);
-    //extra comment
 };
 
 #endif /* EVector_h */
