@@ -43,6 +43,8 @@ public:
     virtual ~Bill();
     friend std::ostream& operator<<(std::ostream&, const Bill&);
     friend std::istream& operator>>(std::istream&, Bill&);
+    virtual void printBill(std::ostream&);
+    virtual void loadBill(std::istream&);
     virtual void calculateBillAmount() = 0;
     virtual char getBillType() const = 0;
     virtual void printTotals(std::ostream&) const;
@@ -52,11 +54,13 @@ public:
 class BillArray{
 private:
     Bill **billArray;
-    int billCount;
+    unsigned int billCount;
 public:
     BillArray();
     ~BillArray();
     void addBill(Bill*);
+    int getBillCount();
+    Bill* getBillItem(int);
     
 };
 

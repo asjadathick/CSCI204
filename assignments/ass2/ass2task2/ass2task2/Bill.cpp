@@ -125,6 +125,42 @@ void Bill::printTotals(ostream& out) const{
     out << "\nTotal amount due: $" << this->amountDue << "\nTotal GST: $" << this->totalGST << "\n" << endl;
 }
 
+void Bill::printBill(ostream& out){
+    out << "Biller name: " << this->billerName << endl;
+    out << "Biller code: " << this->billerCode << endl;
+    out << "Reference number: " << this->referenceNumber << endl;
+    out << "Account number: " << this->accountNumber << endl;
+    out << "Account name: " << this->accountName << endl;
+    out << "Address: " << this->address << endl;
+    out << "Start date: " << this->periodStartDate << endl;
+    out << "End date: " << this->periodEndDate << endl;
+    out << "Due date: " << this->dueDate << endl;
+    
+}
+
+void Bill::loadBill(istream& input){
+    //consume semicolon after type
+    string buffer;
+    getline(input, buffer, ';');
+    
+    getline(input, billerName, ';');
+    getline(input, billerCode, ';');
+    getline(input, referenceNumber, ';');
+    getline(input, accountNumber, ';');
+    getline(input, accountName, ';');
+    getline(input, address, ';');
+    
+    getline(input, buffer, ';');
+    periodStartDate.load(buffer);
+    
+    getline(input, buffer, ';');
+    periodEndDate.load(buffer);
+    
+    getline(input, buffer, ';');
+    dueDate.load(buffer);
+    
+}
+
 //-------BillArray
 BillArray::BillArray(){
     billArray = NULL;
@@ -155,3 +191,10 @@ void BillArray::addBill(Bill *newBill){
     billCount++;
 }
 
+int BillArray::getBillCount(){
+    return billCount;
+}
+
+Bill* BillArray::getBillItem(int index){
+    return billArray[index];
+}

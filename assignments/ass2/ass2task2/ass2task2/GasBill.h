@@ -26,6 +26,8 @@ public:
     void calculateBillAmount();
     char getBillType() const;
     static void setNewRates();
+    void printBill(std::ostream&);
+    void loadBill(std::istream&);
     
     friend std::ostream& operator<<(std::ostream&, const GasBill&);
     friend std::istream& operator>>(std::istream&, GasBill&);

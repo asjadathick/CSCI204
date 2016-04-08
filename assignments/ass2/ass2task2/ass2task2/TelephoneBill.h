@@ -24,6 +24,8 @@ public:
     TelephoneBill();
     void calculateBillAmount();
     char getBillType() const;
+    void printBill(std::ostream&);
+    void loadBill(std::istream&);
     
     friend std::ostream& operator<<(std::ostream&, const TelephoneBill&);
     friend std::istream& operator>>(std::istream&, TelephoneBill&);

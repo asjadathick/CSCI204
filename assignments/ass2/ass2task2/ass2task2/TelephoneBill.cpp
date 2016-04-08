@@ -56,3 +56,32 @@ istream& operator>>(istream& in, TelephoneBill& bill){
     
     return in;
 }
+
+void TelephoneBill::printBill(ostream& out){
+    cout << "Electricity bill:" << endl;
+    dynamic_cast<Bill*>(this)->printBill(out);
+    
+    cout << "Number of local calls: " << numberOfLocalCalls << endl;
+    cout << "International calls: $" << internationalCallAmount << endl;
+    cout << "Total amount due: $" << amountDue << endl;
+    cout << "Total GST: $" << totalGST << endl;
+}
+
+void TelephoneBill::loadBill(istream& input){
+    //will consume 1 bill (line)
+    dynamic_cast<Bill*>(this)->loadBill(input);
+    
+    string buffer;
+    
+    getline(input, buffer, ';');
+    numberOfLocalCalls = atof(buffer.c_str());
+    
+    getline(input, buffer, ';');
+    internationalCallAmount = atof(buffer.c_str());
+    
+    getline(input, buffer, ';');
+    amountDue = atof(buffer.c_str());
+    
+    getline(input, buffer, '\n');
+    totalGST = atof(buffer.c_str());
+}

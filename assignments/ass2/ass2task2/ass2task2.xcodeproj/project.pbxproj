@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		56F306621CB3C12E008FEB5C /* ass2task2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ass2task2; sourceTree = BUILT_PRODUCTS_DIR; };
-		56F306651CB3C12E008FEB5C /* task2Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = task2Main.cpp; sourceTree = "<group>"; };
+		56F306651CB3C12E008FEB5C /* task2Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = task2Main.cpp; path = ../../../../../../../../Documents/CSCI204/assignments/ass2/ass2task2/ass2task2/task2Main.cpp; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F3066C1CB3C166008FEB5C /* Bill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bill.cpp; sourceTree = "<group>"; };
 		56F3066D1CB3C166008FEB5C /* Bill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bill.h; sourceTree = "<group>"; };
 		56F3066F1CB3F3C4008FEB5C /* ElectricityBill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectricityBill.cpp; sourceTree = "<group>"; };

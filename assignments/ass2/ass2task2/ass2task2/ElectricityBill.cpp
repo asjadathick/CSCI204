@@ -84,3 +84,32 @@ char ElectricityBill::getBillType() const{
     return 'E';
 }
 
+void ElectricityBill::printBill(ostream& out){
+    cout << "Electricity bill:" << endl;
+    dynamic_cast<Bill*>(this)->printBill(out);
+    
+    cout << "Previous reading: " << previousReading << endl;
+    cout << "Current reading: " << currentReading << endl;
+    cout << "Total amount due: $" << amountDue << endl;
+    cout << "Total GST: $" << totalGST << endl;
+}
+
+void ElectricityBill::loadBill(istream& input){
+    //will consume 1 bill (line)
+    dynamic_cast<Bill*>(this)->loadBill(input);
+    
+    string buffer;
+    
+    getline(input, buffer, ';');
+    previousReading = atof(buffer.c_str());
+    
+    getline(input, buffer, ';');
+    currentReading = atof(buffer.c_str());
+    
+    getline(input, buffer, ';');
+    amountDue = atof(buffer.c_str());
+    
+    getline(input, buffer, '\n');
+    totalGST = atof(buffer.c_str());
+}
+
