@@ -23,8 +23,7 @@ TelephoneBill::TelephoneBill(){
 void TelephoneBill::calculateBillAmount(){
     double totalLocalCall = numberOfLocalCalls * localCallRate;
     this->amountDue = totalLocalCall + internationalCallAmount + lineRental + internetConnection;
-    this->amountDue = floor(this->amountDue * 100) / 100.0;
-    this->totalGST = floor((this->amountDue * .1) * 100) / 100.0;
+    this->totalGST = this->amountDue * .1;
 }
 
 char TelephoneBill::getBillType() const{

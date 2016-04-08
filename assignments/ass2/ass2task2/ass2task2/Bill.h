@@ -12,7 +12,6 @@
 #include <iostream>
 #include <ctime>
 #include <string>
-#include <cmath>
 #include <iomanip>
 
 class Date{
