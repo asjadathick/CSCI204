@@ -35,14 +35,14 @@ void ElectricityBill::calculateBillAmount(){
     double totalSupplyCharge = billdays * ElectricityBill::supplyCharge;
 
     
-    this->amountDue = floor((totalAmount + totalSupplyCharge) * 100) / 100.0;
-    this->totalGST = floor((this->amountDue * .1) * 100) / 100.0;
+    this->amountDue = totalAmount + totalSupplyCharge;
+    this->totalGST = this->amountDue * .1;
 }
 
 ostream& operator<<(ostream& out, const ElectricityBill& bill){
     out << bill.getBillType() << ";";
     out << (*dynamic_cast<const Bill*>(&bill));
-    out << ";" << bill.previousReading << ";" << bill.currentReading << ";" << bill.amountDue << ";" << bill.totalGST << endl;
+    out << ";" << bill.previousReading << ";" << bill.currentReading << ";" << fixed << setprecision(2) << bill.amountDue << ";" << setprecision(2) << bill.totalGST << endl;
     
     return out;
 }
@@ -90,8 +90,8 @@ void ElectricityBill::printBill(ostream& out){
     
     cout << "Previous reading: " << previousReading << endl;
     cout << "Current reading: " << currentReading << endl;
-    cout << "Total amount due: $" << amountDue << endl;
-    cout << "Total GST: $" << totalGST << endl;
+    cout << "Total amount due: $" << fixed << setprecision(2) << amountDue << endl;
+    cout << "Total GST: $" << fixed << setprecision(2) << totalGST << endl;
 }
 
 void ElectricityBill::loadBill(istream& input){

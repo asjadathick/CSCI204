@@ -122,7 +122,7 @@ Bill::~Bill(){
 }
 
 void Bill::printTotals(ostream& out) const{
-    out << "\nTotal amount due: $" << this->amountDue << "\nTotal GST: $" << this->totalGST << "\n" << endl;
+    out << "\nTotal amount due: $" << fixed << setprecision(2) << this->amountDue << "\nTotal GST: $" << fixed << setprecision(2) << this->totalGST << "\n" << endl;
 }
 
 void Bill::printBill(ostream& out){

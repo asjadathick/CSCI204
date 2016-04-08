@@ -34,7 +34,7 @@ char TelephoneBill::getBillType() const{
 ostream& operator<<(ostream& out, const TelephoneBill& bill){
     out << bill.getBillType() << ";";
     out << (*dynamic_cast<const Bill*>(&bill));
-    out << ";" << bill.numberOfLocalCalls << ";" << bill.internationalCallAmount << ";" << bill.amountDue << ";" << bill.totalGST << endl;
+    out << ";" << bill.numberOfLocalCalls << ";" << bill.internationalCallAmount << ";" << fixed << setprecision(2) << bill.amountDue << ";" << setprecision(2) << bill.totalGST << endl;
     
     return out;
 }
@@ -64,8 +64,8 @@ void TelephoneBill::printBill(ostream& out){
     
     cout << "Number of local calls: " << numberOfLocalCalls << endl;
     cout << "International calls: $" << internationalCallAmount << endl;
-    cout << "Total amount due: $" << amountDue << endl;
-    cout << "Total GST: $" << totalGST << endl;
+    cout << "Total amount due: $" << fixed << setprecision(2) << amountDue << endl;
+    cout << "Total GST: $" << fixed << setprecision(2) << totalGST << endl;
 }
 
 void TelephoneBill::loadBill(istream& input){
