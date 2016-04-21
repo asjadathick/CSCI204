@@ -21,15 +21,15 @@ protected:
     std::string phoneNumber;
     double balance;
     std::string cardNumber;
-    double interestAmount;
 public:
-    virtual void interest() = 0;
+    Account();
     friend std::ostream& operator<<(std::ostream&, const Account&);
-    void roundUpBalance();
     
 };
 
 class Saving: public Account{
+private:
+    double interestAmount;
 public:
     Saving(std::string,std::string,std::string,std::string,std::string, double, std::string);
     void interest();
@@ -38,6 +38,7 @@ public:
 
 class Credit: public Account{
 private:
+    double interestAmount;
     double limitation;
     int repaymentDue;
 public:

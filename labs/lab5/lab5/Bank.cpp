@@ -11,15 +11,15 @@ using namespace std;
 
 //------Account
 
+Account::Account(){
+    balance = 0;
+}
+
 ostream& operator<<(ostream& out, const Account& instance){
     out << "BSB#: " << instance.bsbNumber << ", ";
     out << "Account#: " << instance.accountNumber << ", ";
     out << instance.name << ", ";
     return out;
-}
-
-void Account::roundUpBalance(){
-    balance =  ceil(balance * 1000) / 1000;
 }
 
 
@@ -39,8 +39,8 @@ Saving::Saving(string prBSB, string prAccount, string prName, string prAddress, 
 void Saving::interest(){
     float interestPerDay = 0.3 / (360*100);
     interestAmount = balance * interestPerDay * 30;
+    interestAmount =  ceil(interestAmount * 100) / 100;
     balance += interestAmount;
-    roundUpBalance();
 }
 
 ostream& operator<<(ostream& out, const Saving& instance){
@@ -77,8 +77,8 @@ void Credit::interest(){
     
     float interestRatePerDay = interestRate / 360;
     interestAmount = balance * interestRatePerDay * repaymentDue;
+    interestAmount =  ceil(interestAmount * 100) / 100;
     balance += interestAmount;
-    roundUpBalance();
 
 }
 
