@@ -59,9 +59,13 @@ public:
     
     CollegeCourse operator+(CollegeCourse v1){
         CollegeCourse result;
+        result.courseId = "Total";
         
         int totalHonorPoints = v1.honorPoints + this->honorPoints;
         int totalCreditPoints = v1.creditsEarned + this->creditsEarned;
+        
+        result.honorPoints = totalHonorPoints;
+        
         
         int ratio = totalHonorPoints / totalCreditPoints;
     
@@ -86,7 +90,7 @@ public:
         return result;
     }
     
-    double operator/(int val){
+    double operator/(float val){
         return this->honorPoints/val;
     }
     
