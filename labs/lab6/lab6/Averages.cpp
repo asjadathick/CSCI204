@@ -24,10 +24,10 @@ public:
         honorPoints = 0;
     }
     
-    CollegeCourse(string courseId, char grade, unsigned int creditsEarned){
-        this->courseId = courseId;
-        this->grade = grade;
-        this->creditsEarned = creditsEarned;
+    CollegeCourse(string pcourseId, char pgrade, unsigned int pcreditsEarned){
+        this->courseId = pcourseId;
+        this->grade = pgrade;
+        this->creditsEarned = pcreditsEarned;
     }
     
     void calculateHonorPoints(){
@@ -50,10 +50,10 @@ public:
         this->honorPoints = this->creditsEarned * gradeValue;
     }
     
-    void setValues(string courseId, char grade, unsigned int creditsEarned){
-        this->courseId = courseId;
-        this->grade = grade;
-        this->creditsEarned = creditsEarned;
+    void setValues(string pcourseId, char pgrade, unsigned int pcreditsEarned){
+        this->courseId = pcourseId;
+        this->grade = pgrade;
+        this->creditsEarned = pcreditsEarned;
         calculateHonorPoints();
     }
     
