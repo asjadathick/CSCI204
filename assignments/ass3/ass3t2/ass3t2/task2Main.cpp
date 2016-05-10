@@ -13,37 +13,43 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    
-    cout << "M1: " << endl;
-    matrix<int> m1(3,3);
-    cin >> m1;
-    cout << m1;
-    
-    cout << "M2: " << endl;
-    matrix<int> m2(3,3);
-    cin >> m2;
-    cout << m2;
-    
-    matrix<int> m3 = m1 + m2;
-    cout << "M3:\n" << m3;
-    
-    matrix<int> m4 = m1-m2;
-    cout << "M4:\n" << m4;
-    
-    matrix<int> m5 = m1 * m2;
-    cout << "M5:\n" << m5;
-    
-    /*complexn c1, c2;
-    
-    cin >> c1;
-    
-    cin >> c2;
-    
-    complexn c3 = c1 + c2;
-    complexn c4 = c1 - c2;
-    complexn c5 = c1 * c2;
-    
-    cout << complexn::real << c1;
-    cout << complexn::magnitude << c2;
-    cout << complexn::cplx << c3 << c4 << c5;*/
+	try {
+		
+		matrix<double> r1(3,3), r2(3,3);
+		matrix<complexn> c1(3,3), c2(3,3);
+		
+		cout << "Input a real matrix (3,3): " << endl;
+		cin >> r1;
+		cout << "Entered real matrix:" << endl;
+		cout << info << r1;
+		
+		cout << "Input a real matrix (3,3): " << endl;
+		cin >> r2;
+		cout << "Entered real matrix:" << endl;
+		cout << info << r2;
+		
+		cout << "Sum of real matrix 1 + 2" << endl;
+		matrix<double> sumr = r1 + r2;
+		cout << noinfo << sumr;
+		
+		cout << "Difference of real matrix 1 - 2" << endl;
+		matrix<double> diffr = r1 - r2;
+		cout << noinfo << diffr;
+		
+		cout << "Product of real matrix 1 * 2" << endl;
+		matrix<double> prodr = r1 * r2;
+		cout << info << prodr;
+		
+		cout << "Input a complex matrix (3,3): " << endl;
+		cin >> c1;
+		cout << "Entered complex matrix:" << endl;
+		
+		cout << "Input a complex matrix (3,3): " << endl;
+		cin >> c2;
+		
+	} catch (const char* e) {
+		cout << "An exception occurred: " << e << endl;
+	}
+	
+	
 }

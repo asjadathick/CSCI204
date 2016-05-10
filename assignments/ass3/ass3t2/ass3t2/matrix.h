@@ -10,6 +10,21 @@
 #define matrix_h
 
 #include <iostream>
+enum OutputState {mcplx, mreal, mimg, mmag};
+
+//global variables for use by manipulators
+bool infoState = false;
+OutputState outstate = mcplx;
+
+//manipulators - matrix
+std::ostream& info(std::ostream&);
+std::ostream& noinfo(std::ostream&);
+
+//manipulators - complexn
+std::ostream& cplx(std::ostream&);
+std::ostream& real(std::ostream&);
+std::ostream& img(std::ostream&);
+std::ostream& magnitude(std::ostream&);
 
 class complexn;
 
@@ -23,9 +38,14 @@ public:
     matrix<T> operator+(const matrix<T>&);
     matrix<T> operator-(const matrix<T>&);
     matrix<T> operator*(const matrix<T>&);
-    
-    
+
+    //friend members
     friend std::ostream& operator<<(std::ostream& out, const matrix<T>& inp){
+        
+        if (infoState) {
+            out << inp.row << "x" << inp.col << " matrix\n";
+        }
+        
         for (int i = 0; i < inp.row; i++) {
             for (int j = 0; j < inp.col; j++) {
                 out << inp.data[i][j] << '\t';
@@ -45,32 +65,22 @@ public:
         }
         return in;
     }
-    
-    friend matrix operator+(const matrix&, const matrix<T>&);
 };
 
 
 class complexn{
-    enum OutputState {mcplx, mreal, mimg, mmag};
     float realVal, imgVal;
-    static OutputState outstate;
     
 public:
     complexn();
     complexn(float real, float img);
+    complexn& operator=(int);
     
     friend std::ostream& operator<<(std::ostream&, const complexn&);
     friend std::istream& operator>>(std::istream&, complexn&);
     friend complexn operator+(const complexn&, const complexn&);
     friend complexn operator-(const complexn&, const complexn&);
     friend complexn operator*(const complexn&, const complexn&);
-    
-    
-    //output manipulators
-    static std::ostream& cplx(std::ostream&);
-    static std::ostream& real(std::ostream&);
-    static std::ostream& img(std::ostream&);
-    static std::ostream& magnitude(std::ostream&);
     
 };
 

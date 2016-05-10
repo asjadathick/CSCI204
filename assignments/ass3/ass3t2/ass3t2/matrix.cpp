@@ -9,8 +9,42 @@
 #include "matrix.h"
 #include <cmath>
 
+//global manipulators
+//complexn
+std::ostream& cplx(std::ostream& s){
+	outstate = mcplx;
+	return s;
+}
+
+std::ostream& real(std::ostream& s){
+	outstate = mreal;
+	return s;
+}
+
+std::ostream& img(std::ostream& s){
+	outstate = mimg;
+	return s;
+}
+
+std::ostream& magnitude(std::ostream& s){
+	outstate = mmag;
+	return s;
+}
+
+//matrix
+std::ostream& info(std::ostream& out){
+	infoState = true;
+	return out;
+}
+
+
+std::ostream& noinfo(std::ostream& out){
+	infoState = false;
+	return out;
+}
 
 //---------matrix
+
 template <class T>
 matrix<T>::matrix(int r, int c){
     this->row = r;
@@ -26,7 +60,10 @@ matrix<T>::matrix(int r, int c){
 template <class T>
 matrix<T>::~matrix(){
     if (data != NULL) {
-        delete [] data;
+		for (int i = 0; i < this->row; i++) {
+			delete [] this->data[i];
+		}
+		delete [] this->data;
     }
     row = 0;
     col = 0;
@@ -34,7 +71,8 @@ matrix<T>::~matrix(){
 
 template <class T>
 matrix<T> matrix<T>::operator+(const matrix<T>& value){
-    if ((this->row != value.row) && (this->col != value.col)) {
+	
+    if ((this->row != value.row) || (this->col != value.col)) {
         throw "Matrices need to be of the same size for addition.";
     }
     
@@ -51,7 +89,7 @@ matrix<T> matrix<T>::operator+(const matrix<T>& value){
 
 template <class T>
 matrix<T> matrix<T>::operator-(const matrix<T>& value){
-    if ((this->row != value.row) && (this->col != value.col)) {
+    if ((this->row != value.row) || (this->col != value.col)) {
         throw "Matrices need to be of the same size for subtraction.";
     }
     
@@ -78,7 +116,7 @@ matrix<T> matrix<T>::operator*(const matrix<T>& value){
         for (int j = 0; j < value.col; j++) {
             returnValue.data[i][j] = 0;
             for (int k = 0; k < this->col; k++) {
-                returnValue.data[i][j] += this->data[i][k] * value.data[k][j];
+                returnValue.data[i][j] = (returnValue.data[i][j] + this->data[i][k] * value.data[k][j]);
             }
         }
     }
@@ -87,8 +125,6 @@ matrix<T> matrix<T>::operator*(const matrix<T>& value){
 }
 
 //---------complexn
-
-complexn::OutputState complexn::outstate = mcplx;
 
 complexn::complexn(){
     this->realVal = 0;
@@ -100,25 +136,33 @@ complexn::complexn(float real, float img){
     this->imgVal = img;
 }
 
+complexn& complexn::operator=(int value){
+    if (value == 0) {
+        this->realVal = 0;
+        this->imgVal = 0;
+    }
+    return *this;
+}
+
 std::ostream& operator<<(std::ostream& out, const complexn& instance){
     
-    if (instance.outstate == complexn::mcplx) {
-        out << "(" << instance.realVal << ", " << instance.imgVal << ")" << std::endl;
+    if (outstate == mcplx) {
+        out << "(" << instance.realVal << ", " << instance.imgVal << ")";
     }
     
-    if (instance.outstate == complexn::mreal) {
-        out << instance.realVal << std::endl;
+    if (outstate == mreal) {
+        out << instance.realVal;
     }
     
-    if (instance.outstate == complexn::mimg) {
-        out << instance.imgVal << std::endl;
+    if (outstate == mimg) {
+        out << instance.imgVal;
     }
     
-    if (instance.outstate == complexn::mmag) {
+    if (outstate == mmag) {
         double mag = (instance.realVal * instance.realVal) + (instance.imgVal * instance.imgVal);
         mag = sqrt(mag);
         
-        out << mag << std::endl;
+        out << mag;
     }
     
     return out;
@@ -153,23 +197,4 @@ complexn operator*(const complexn& v1, const complexn& v2){
     return result;
 }
 
-std::ostream& complexn::cplx(std::ostream& s){
-    outstate = mcplx;
-    return s;
-}
-
-std::ostream& complexn::real(std::ostream& s){
-    outstate = mreal;
-    return s;
-}
-
-std::ostream& complexn::img(std::ostream& s){
-    outstate = mimg;
-    return s;
-}
-
-std::ostream& complexn::magnitude(std::ostream& s){
-    outstate = mmag;
-    return s;
-}
 
