@@ -1,0 +1,30 @@
+//header guards
+#ifndef assignment3_h
+#define assignment3_h
+
+#include <iostream>
+
+class Student{
+public:
+    Student();
+    Student(int numMarks);
+    Student(const Student& stud);
+    ~Student();
+    int getNumOfSubjTaken();
+    float getAverageMark();
+    int getLowestMark();
+    int getHighestMark();
+    std::string getFullName();
+    void setFullName(std::string fullName);
+    void addMark(int value);
+    int getMark(int index);
+    
+private:
+    std::string fullName;
+    int numofSubjects;
+    int *marks;
+};
+
+
+
+#endif // assignment3_h 

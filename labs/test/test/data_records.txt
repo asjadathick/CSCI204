@@ -1,0 +1,11 @@
+R: 10
+Steve Abrew 90 80 84 76
+David Nag 93 87 90 80
+Mike Black
+Andrew Van Den 90 88 95 85
+Chris Smith 86 74 90
+Dennis Dudley 74 76 77 83
+Leo Rice 95 75
+Fred Flinstone 73 67 78 72
+Dave Light 89 71 91 89
+Hua Tran Du 81 79 80
