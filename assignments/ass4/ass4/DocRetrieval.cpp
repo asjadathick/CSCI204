@@ -7,13 +7,14 @@
 //
 
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <vector>
 #include <set>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
-const string filePrefixPath = "../../../../../../../../Documents/CSCI204/assignments/ass4/ass4/";
 
 struct Document{
 	string documentName;
@@ -22,11 +23,11 @@ struct Document{
 };
 
 bool openFile(string filename, ifstream& in){
-	in.open(filePrefixPath + filename.c_str());
+	in.open(filename.c_str());
 	if (in.good()){
 		return true;
 	} else {
-		cout << "Error opening file: " << filePrefixPath << filename << endl;
+		cout << "Error opening file: " << filename << endl;
 		return false;
 	}
 }
@@ -60,12 +61,6 @@ bool loadWordsFromDocument(Document &doc){
 		doc.words.push_back(sanitise(buffer));
 	}
 	
-	/*
-	cout << "Words loaded for doc:" << doc.documentName << endl;
-	for (int i = 0; i < doc.words.size(); i++) {
-		cout << doc.words.at(i) << endl;
-	}*/
-	
 	return true;
 }
 
@@ -77,19 +72,12 @@ int intersection(vector<string> v1, vector<string> v2){
 	
 	set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(intersect));
 	
-	/*
-	cout << "Intersected words:"<< endl;
-	
-	for (int i = 0; i < intersect.size(); i++) {
-		cout << intersect.at(i) << endl;
-	} */
-	
 	return (int)intersect.size();
 }
 
 float calculateCoefficient(Document data, Document query){
 	float coefficient = 0;
-	coefficient = intersection(data.words, query.words) / (sqrt(data.words.size()) * (sqrt(query.words.size()))) ;
+	coefficient = intersection(data.words, query.words) / (sqrt((double)(data.words.size())) * (sqrt((double)(query.words.size())))) ;
 	
 	return coefficient;
 }
@@ -98,16 +86,23 @@ bool compareDocuments(Document d1, Document d2){
 	return d1.coefficient > d2.coefficient;
 }
 
-string first10Words(vector<string> words){
+string first10Words(string filename){
 	string result;
-	bool done = false;
-	for (int i = 0; i < 10 || done; i++){
-		result += words.at(i) + " ";
-		if (i > words.size() - 1)
-			done = true;
+	
+	ifstream inputFile;
+	if (!openFile(filename, inputFile))
+		return "File open error.";
+	
+	int count = 0;
+	string buffer;
+	while (inputFile >> buffer) {
+		result += (buffer) + " ";
+		count++;
+		if (count >= 10)
+			break;
 	}
 	
-	if (!done) {
+	if (inputFile >> buffer) {
 		result += " ...";
 	}
 	
@@ -155,8 +150,8 @@ int main(int argc, const char * argv[]) {
 	//output documents
 	
 	for (int i = 0; i < documents.size(); i++) {
-		cout << "(" << documents.at(i).documentName << " - " << (documents.at(i).coefficient * 100) << "%) " <<
-		first10Words(documents.at(i).words) << endl;
+		cout << "(" << documents.at(i).documentName << " - " << fixed << setprecision(2) << (documents.at(i).coefficient * 100) << "%) " <<
+		first10Words(documents.at(i).documentName) << endl << endl;
 	}
 	
     return 0;
